@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.dropzone {
+  border: 2px dashed #007bff;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  margin: 20px auto;
+  cursor: pointer;
+}
+
+.dropzone.active {
+  border-color: #28a745;
+  background-color: #e6ffe6;
+}
+

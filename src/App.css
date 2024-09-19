@@ -38,17 +38,12 @@
 }
 
 .dropzone {
-  border: 2px dashed #007bff;
-  border-radius: 5px;
-  padding: 20px;
   width: 300px;
-  text-align: center;
+  height: 200px;
+  border: 2px dashed #00f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 20px auto;
-  cursor: pointer;
+  color: #555;
 }
-
-.dropzone.active {
-  border-color: #28a745;
-  background-color: #e6ffe6;
-}
-

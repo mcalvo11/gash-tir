@@ -4,6 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import awsconfig from './aws-exports';
 import './App.css';
 import ContainerInfoTable from './ContainerInfoTable';
+import detectText from "./rekognition";
 Amplify.configure(awsconfig);
 
 function App() {
@@ -18,9 +19,11 @@ function App() {
 
       Storage.put(fileName, file, {
         contentType: file.type,
+        level: 'public',
       })
         .then((result) => {
           console.log('Archivo subido con éxito:', result);
+          detectText(fileName)
           return Storage.get(result.key);
         })
         .then((url) => {

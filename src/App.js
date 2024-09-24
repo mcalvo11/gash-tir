@@ -72,12 +72,6 @@ function App() {
           <ContainerInfoTable containerData={containerData} />
         </div>
       </div>
-      {fileUrl && (
-        <div>
-          <p>Archivo subido:</p>
-          <a href={fileUrl} target="_blank" rel="noopener noreferrer">{fileUrl}</a>
-        </div>
-      )}
     </div>
   );
 }

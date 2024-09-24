@@ -56,7 +56,7 @@ function App() {
           <div className="upload-section">
             <div {...getRootProps({ className: 'dropzone' })}>
               <input {...getInputProps()} />
-              {isDragActive ? <p>Drop the image here ...</p> : <button className="choose-file-btn">Choose File</button>}
+              {isDragActive ? <p>Arrastre la imagen aqui ...</p> : <button className="choose-file-btn">Seleccione una imagen</button>}
             </div>
           </div>
         </div>

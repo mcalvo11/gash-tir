@@ -7,8 +7,8 @@ const ContainerInfoTable = ({ containerData }) => {
       <table>
         <tbody>
           <tr>
-            <th>Name</th>
-            <th>Value</th>
+            <th>Nombre</th>
+            <th>Valor</th>
           </tr>
           <tr>
             <td>Propietario del contenedor</td>

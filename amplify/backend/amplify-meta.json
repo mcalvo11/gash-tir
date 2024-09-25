@@ -1,0 +1,15 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tircontenedores-dev-164332-authRole",
+      "UnauthRoleArn": "arn:aws:iam::651706757995:role/amplify-tircontenedores-dev-164332-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::651706757995:role/amplify-tircontenedores-dev-164332-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-tircontenedores-dev-164332-deployment",
+      "UnauthRoleName": "amplify-tircontenedores-dev-164332-unauthRole",
+      "StackName": "amplify-tircontenedores-dev-164332",
+      "StackId": "arn:aws:cloudformation:us-east-2:651706757995:stack/amplify-tircontenedores-dev-164332/6ff94990-760f-11ef-988f-06579071b555",
+      "AmplifyAppId": "d2vvsudzv5ibts"
+    }
+  }
+}

@@ -4,46 +4,60 @@ import { useDropzone } from 'react-dropzone';
 import awsconfig from './aws-exports';
 import './App.css';
 import ContainerInfoTable from './ContainerInfoTable';
+import DataInfoConfidence from './DataInfoConfidence';
 import detectText from "./rekognition";
 Amplify.configure(awsconfig);
 
 function App() {
   const [fileUrl, setFileUrl] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
-
-  const onDrop = useCallback((acceptedFiles) => {
-    const file = acceptedFiles[0];
-    if (file) {
-      const fileName = file.name;
-      setPreviewUrl(URL.createObjectURL(file)); 
-
-      Storage.put(fileName, file, {
-        contentType: file.type,
-        level: 'public',
-      })
-        .then((result) => {
-          console.log('Archivo subido con éxito:', result);
-          detectText(fileName)
-          return Storage.get(result.key);
-        })
-        .then((url) => {
-          setFileUrl(url);
-        })
-        .catch((err) => console.error('Error al subir el archivo:', err));
-    }
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: 'image/*',
-  });
-  const containerData = {
+  const [detectedTexts, setDetectedTexts] = useState([]);
+  const [containerData, setContainerData] = useState({
     owner: '',
     type: '',
     id: '',
     verifier: '',
     isoType: '',
-  };
+  });
+  const onDrop = useCallback(async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    
+    if (file) {
+      const fileName = file.name;
+      setPreviewUrl(URL.createObjectURL(file)); 
+  
+      try {
+        const result = await Storage.put(fileName, file, {
+          contentType: file.type,
+          level: 'public',
+        });
+        const detectedTextResults = await detectText(fileName);
+        setDetectedTexts(detectedTextResults); 
+        if (detectedTextResults.length >= 4) {
+          const ownerAndType = detectedTextResults[0].text;
+          const newContainerData = {
+            owner: ownerAndType.slice(0, 3),
+            type: ownerAndType.slice(3, 4),
+            id: detectedTextResults[1].text,
+            verifier: detectedTextResults[2].text,
+            isoType: detectedTextResults[3].text,
+          };
+          setContainerData(newContainerData);
+        }
+
+        const url = await Storage.get(result.key);
+        setFileUrl(url);
+      } catch (err) {
+        console.error('Error al subir el archivo:', err);
+      }
+    }
+  }, []);
+
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: 'image/*',
+  });
   return (
     <div className="App">
       <div className="upload-container" style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -73,6 +87,7 @@ function App() {
         <div className="table-section">
           <h1>Información del Contenedor</h1>
           <ContainerInfoTable containerData={containerData} />
+          <DataInfoConfidence containerData={detectedTexts} />
         </div>
       </div>
     </div>

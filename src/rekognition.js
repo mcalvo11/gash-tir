@@ -29,24 +29,24 @@ async function createRekognitionClient() {
       const client = await createRekognitionClient();
       const command = new DetectTextCommand(params);
       const response = await client.send(command);
-  
-      console.log('Detected text\n----------');
+      let textResults = [];
       let textCount = 0;
-  
       response.TextDetections.forEach(text => {
         const confidence = text.Confidence;
-        if (confidence > 70) {
-          console.log(text.DetectedText);
-          console.log(`${confidence.toFixed(2)}%`);
-          console.log();
-          textCount++;
+        if (text.Type === "WORD") {
+          if (textCount < 5) {
+            textResults.push({
+              text: text.DetectedText,
+              confidence: confidence.toFixed(2)
+            });
+            textCount++;
+          }
         }
       });
-  
-      console.log(`Text detected: ${textCount}`);
-  
-    } catch (err) {
-      console.error('Error detecting text:', err);
+      return textResults;
+  } catch (err) {
+    console.error('Error detecting text:', err);
+    return []; 
     }
   }
   

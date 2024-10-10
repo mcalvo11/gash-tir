@@ -126,6 +126,7 @@ function App() {
     <div className="App">
       <div className="upload-container" style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div className="preview-section">
+        <header className='page-header'>Gash Contenedores</header>
           <div className="preview-area">
             {previewUrl ? (
               <img src={previewUrl} alt="Preview" className="preview-image" />

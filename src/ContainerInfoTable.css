@@ -19,9 +19,13 @@
     text-align: left;
     border-bottom: 1px solid #eee;
   }
+
+  td{
+    color: white;
+   }
   
   .container-info-table th {
-    background-color: #f8f8f8;
+    background-color: darkred;;
     font-weight: bold;
   }
   
